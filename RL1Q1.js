@@ -1,7 +1,8 @@
 function insertion_sort(a) {
     
     numeros = []
-
+    soma = 0
+    
     for (j = 1; j < a.length; j++){
         key = a[j]
         i = j - 1
@@ -10,11 +11,17 @@ function insertion_sort(a) {
         // soma os valores e coloca em ordem para a maior soma 
         if(key !== 'start'){
             numeros[i] = key
+            soma += numeros[i]
         } 
         if(key === 'start' || j === a.length){
             fim = i
-            numeros[fim] = i
-            ordenarSomas(numeros, fim)  
+            numeros[fim] = soma
+            
+            for(let c=0;c<=fim;c++){
+                console.log('numeros:',numeros[c])
+            }
+            console.log('soma',soma);
+            
         }
 
         /*
@@ -26,17 +33,6 @@ function insertion_sort(a) {
         }
         */
     }
-}
-
-
-function ordenarSomas(n, f){
-    console.log('entrou');
-    soma = 0
-    console.log('n: ',n,'f',f);
-    for(let c=0 ; c<f ; c++){
-        soma += n[c]
-    }
-    console.log('soma',soma);
 }
 
 
