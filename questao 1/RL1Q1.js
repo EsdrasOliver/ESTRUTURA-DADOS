@@ -14,93 +14,152 @@ function ordenacao(a) {
 }
 
 A = ['start', 3, -1, 2, 0, 'start', 4, 2, 5, 1, 0,'start', 2, 1, -3]
-listaOrdenadaCrescente = ordenacao(A)
+listaOrdenada = ordenacao(A)
 
-// somar os arrays e coloca em ordem por soma
-let Valores = [];
-let listaOrdenada = [];
 
-for (let x = 0; x < Valores.length; x++) {
-    for (y = 0; y < Valores[x].length; y++) {
-        ordenarListas(Valores[x][y]);
+function soma(a) {
+    for(let j = 1; j < a.length; j++){
+        key = a[j][-1]
+        key2 = a[j]
+        i = j - 1
+        while(i >= 0 && a[i][-1] > key){
+            a[i + 1] = a[i]
+            i = i - 1
+            a[j + 1] = key2
+        }
     }
 }
 
-let adicionar = [];
+function outraSoma(a) {
+    for(let j = 1; j < a.length; j++){
+        key = a[j][-2]
+        key2 = a[j]
+        i = j - 1
+        while(i >= 0 && a[i][-2] > key){
+            a[i + 1] = a[i]
+            i = i - 1
+            a[j + 1] = key2
+        }
+    }
+}
 
-function somarValores(Valores, adicionar) {
-    for (let x = 0; x < Valores.length; x++) {
-        let auxiliar = [];
-        for (let y = 0; y < Valores[x].length; y++) {
-            let i = 0;
+
+const fs = require("fs");
+let lerArquivo = fs.readFileSync('L1Q1.in', 'utf-8');
+
+leitura = lerArquivo.split(' ')
+
+// remove os start 
+entrada = []
+for(let i = 0; i < leitura.length; i++){
+    entrada.push(leitura[i].split('start '))
+    delete(entrada[i][0])
+
+    for(let j = 0; j < entrada[i]; j++){
+        if(entrada[i][j][-1] === ' '){
+            entrada[i][j] = entrada[i][j][-1]
+        }
+    }
+}
+
+// leitura = ''
+listagem = listaOrdenada.map((_, indice) => indice).filter(i => listaOrdenada[i] === 'start');
+
+outraListagem = []
+
+for(lista in entrada){
+    for(item in lista){
+        outraListagem = (item.split(' '))
+        listagem.push(outraListagem)
+
+        leitura.push(listagem)
+        // listagem.clear()
+    }
+}
+
+for(let i=0; i < entrada.length; i++){
+    for(let j=0; j < entrada[i]; j++){
+        for(let x=0; x < entrada[i][j]; x++){
+            entrada[i][j][x] = parseInt(entrada[i][j][x])
+        }
+    }
+}
+
+/*
+for(let i=0; i < entrada.length; i++){
+    for(let j=0; j < entrada[i].length; j++){
+        k=0
+        aux = {
+            entrada: []
+        }
+        
+        while(k < (aux.entrada[i][j].length - 1)){
+            l = k+1
+            while(l < entrada[i][j]){
+                if(entrada[i][j][k] === entrada[i][j][l]){
+                    entrada[i][j].pop(l)
+                } else {
+                    l+=1
+                }
+            k+=1
+            }
+        }
+    }
+}
+*/
+
+// (soma total no ultimo elemento e soma dos negativos no penultimo elemento)
+
+for(let i=0; i < entrada.length; i++){
+    for(let j=0; j < entrada; j++){
+        somaC = 0
+        outra_soma = 0
+        for(item in entrada[i][j]){
+            somaC += item
+            if(item < 0){
+                outra_soma += item 
+            }
+        }
+        entrada[i][j].push(outra_soma)
+        entrada[i][j].push(somaC)
+    }
+}
+
+// ordenando as listas dentro da lista
+for(let i=0; i < entrada.length; i++){
+    for(let j=0; j < entrada[i].length; j++){
+        // ordenando pela soma
+        soma(entrada[i])
+
+        // se tiver elemento negativo, ele faz a soma tbm
+        if(entrada[i][j][-1] === entrada[i][j-1][-1] && j > 0){
+            outraSoma(entrada[i])
+        }
+    }
+}
+
+for(let i=0; i < entrada.length; i++){
+    for(let j=0; j < entrada[i].length; i++){
+        entrada[i][j].pop(-1)
+        entrada[i][j].pop(-1)
+    }
+}
+
+// escrever no arquivo de saida
+function imprimirLista(auxiliar) {
+    var values = "";
     
-            for (let z = 1; z < Valores[x][y].length; z++) {
-                if (Valores[x][y][z] > 0){
-                    i += parseInt(Valores[x][y][z])
-                }
-            }    
-            auxiliar.push({i, x, y});
+    for (let x = 0; x < auxiliar.length; x++) {
+        var i = auxiliar[x].toString()
+        i = i.split(",").join(" ")
+        if (x+1 != auxiliar.length) {
+            i = i + "\n";
         }
-        adicionar.push(auxiliar);
+        values += i;
     }
-
-    let quantidade = [];
-    for (let x = 0; x < adicionar.length; x++) {
-        let armazenar = [];
-        let auxiliar2 = [];
-
-        for (let y = 0; y < adicionar[x].length; y++) {
-            for (let z = 0; z < armazenar.length; z++) {
-                if (armazenar[z].i == adicionar[x][y].i) {
-                    if (!auxiliar2.includes(adicionar[x][y])) {
-                        auxiliar2.push(adicionar[x][y]);
-                    }
-                    if (!auxiliar2.includes(armazenar[z])) {
-                        auxiliar2.push(armazenar[z]);
-                    }
-                }
-            }
-            armazenar.push(adicionar[x][y]);
-        }
-        quantidade.push(auxiliar2);
-    }
-
-    for (let x = 0; x < quantidade.length; x++) {
-        for (let y = 0; y < quantidade[x].length; y++) {
-            for (let z = 1; z < Valores[quantidade[x][y].x][quantidade[x][y].y].length; z++) {
-                if (Valores[quantidade[x][y].x][quantidade[x][y].y][z] < 0) {
-                    quantidade[x][y].i = quantidade[x][y].i + parseInt(Valores[quantidade[x][y].x][quantidade[x][y].y][z]);
-                }
-            }
-        }
-    }
+    return values
 }
 
-somarValores(Valores, adicionar);
+fs.writeFileSync("L1Q1.out", imprimirLista(listaOrdenada));
 
-function ordenarSomas(ordenar) {
-    let i = ordenar.length;
-
-    for (let x = 1; x < i; x++) {
-        let auxiliar = ordenar[x];
-        let y = x - 1; 
-        while ((y > -1) && (auxiliar.soma < ordenar[y].soma)) {
-            ordenar[y + 1] = ordenar[y];
-            y--;
-        }
-        ordenar[y + 1] = auxiliar;
-    }
-}
-
-
-for (let x = 0; x < adicionar.length; x++) {
-    ordenarSomas(adicionar[x]);
-}
-
-for (let x = 0; x < adicionar.length; x++) {
-    let i = [];
-    for (let y = 0; y < adicionar[x].length; y++) {
-        i.push(Valores[adicionar[x][y].x][adicionar[x][y].y]);
-    }
-    listaOrdenada.push(i);
-}
+console.log("Arquivo criando!");
