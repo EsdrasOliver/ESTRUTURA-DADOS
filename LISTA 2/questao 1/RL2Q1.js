@@ -29,11 +29,8 @@ for(let i = 0; i < entrada.length; i++) {
         saida += `${altura} `
     }
 
-    // SearchMax
     var maximo = arvoreBinaria.ProcurarMax(arvoreBinaria.raiz)
 
-    // getAlt
-    // SearchAnt
     saida+= `max ${maximo.key} alt ${maximo.pegarAlt()} pred ${(maximo.pai != null) ? arvoreBinaria.ProcurarAnt(maximo).key : "NaN"}\n`
 }
 

@@ -50,6 +50,62 @@ class ArvoreBinaria {
         }
         return y;
     }
+
+    // procura os valores 
+    Procurar(x,key){
+        if(x === null || key === x.key){
+            return x;
+        }
+        if(key < x.key) {
+            return this.Procurar(x.esquerda, key)
+        } else {
+            return this.Procurar(x.direita, key)
+        }
+    }
+
+    ProcurarMin(x){
+        while (x.esquerda != null){
+            x = x.esquerda;
+        }
+        return x; 
+    }
+
+    ProcurarProx(x){
+        if(x.right != null){
+            return this.SearchMin(x.right);
+        }
+        y = x.pai;
+        while(y != null & x == y.right){
+            x = y;
+            y = y.pai;
+        }
+        return y;
+    }
+
+    VerificarArray(x, vetor = []){
+        if(x != null){
+            this.VerificarArray(x.esquerda, vetor)
+            vetor.push(x)
+            this.VerificarArray(x.direita, vetor)
+        }
+        return vetor;
+    }
+
+    Soma(x){
+        var key = (x != null) ? x.key : 0
+        var direita = (x != null) ? this.Soma(x.direita) : 0
+        var esquerda = (x != null) ? this.Soma(x.esquerda) : 0
+
+        return key + direita + esquerda;
+    }
+
+    Verificar(x){
+        if(x != null){
+            this.Verificar(x.esquerda);
+            // console.log(x.key)
+            this.Verificar(x.direita);
+        }
+    }
 }
 
 module.exports = ArvoreBinaria;
