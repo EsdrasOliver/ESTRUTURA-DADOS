@@ -9,9 +9,11 @@ const fs = require('fs')
 var arvoreQ1 = fs.readFileSync('./L2Q1.in', 'utf-8')
 var entrada = arvoreQ1.split(/\r?\n/)
 
+// separando espaços
 for(let i = 0; i < entrada.length; i++) {
     entrada[i] = entrada[i].split(' ')
 }
+
 
 for(let i = 0; i < entrada.length; i++) {
     for(let j = 0; j < entrada[i].length; j++) {
@@ -24,6 +26,7 @@ var saida = ''
 for(let i = 0; i < entrada.length; i++) {
     var arvoreBinaria = new Arvore()
 
+    // procurando dentro da arvore e inserindo
     for(let j = 0; j < entrada[i].length; j++) {
         let altura = arvoreBinaria.Insert(new No(entrada[i][j]))
         saida += `${altura} `
