@@ -34,7 +34,7 @@ for(let i = 0; i < entrada.length; i++) {
         var direita = arvoreBinaria.Soma(arrayTree[j].direita);
         var esquerda = arvoreBinaria.Soma(arrayTree[j].esquerda);
 
-        saida += `${arrayTree[j].key} (${direita - esquerda})${j === arrayTree.length - 1 ? '' : ' '}`;
+        saida += `${arrayTree[j].key} (${direita - esquerda})${j === arrayTree.length - 1 ? '' : ' '}`
     }
     saida += "\n"
 }

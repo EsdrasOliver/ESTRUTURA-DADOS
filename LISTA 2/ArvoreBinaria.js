@@ -37,7 +37,6 @@ class ArvoreBinaria {
         return x;
     }
 
-    // procura o anterior 
     ProcurarAnt(x){
         if(x.esquerda != null){
             return this.ProcurarMax(x.esquerda);
@@ -51,12 +50,11 @@ class ArvoreBinaria {
         return y;
     }
 
-    // procura os valores 
     Procurar(x, key){
         if(x == null || key == x.key) {
             return x;
         }
-        // menor chave a esquerda | maior chave a direita 
+
         if(key < x.key) {
             return this.Procurar(x.esquerda, key)
         } else {
@@ -103,35 +101,30 @@ class ArvoreBinaria {
     Verificar(x){
         if(x != null){
             this.Verificar(x.esquerda);
-            // console.log(x.key)
             this.Verificar(x.direita);
         }
     }
 
     Delete(x) {
-        var y // valor
-        var z // 
+        var y 
+        var z  
 
-        // verifica se arvore esta vazia
         if(x.esquerda == null || x.direita == null) {
             y = x
         } else {
             y = this.ProcurarProx(x)
         }
 
-        // valor para delete esta a esquerda ou direita 
         if(y.esquerda != null) {
             z = y.esquerda
         } else {
             z = y.direita
         }
 
-        // pai
         if(z != null) {
             z.pai = y.pai
         }
 
-        // escolhendo no deletado
         if(y.pai == null) {
             this.raiz = z
         } else if(y == y.pai.esquerda) {
